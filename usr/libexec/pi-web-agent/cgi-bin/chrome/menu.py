@@ -64,12 +64,12 @@ class DockMenu(Menu):
         <div id="dock-container">
         <div id="dock">
 		    <ul id="dock">
-			    <li><span>Firwall</span><a href="http://android.com"><img id="dock-item" src="http://openiconlibrary.sourceforge.net/gallery2/open_icon_library-full/icons/png/128x128/apps/firewall.png"/></a></li>
-			    <li><span>Update</span><a href="http://palm.com"><img src="http://openiconlibrary.sourceforge.net/gallery2/open_icon_library-full/icons/png/128x128/apps/system-software-update-3.png"/></a></li>
-			    <li><span>Camera</span><a href="http://apple.com/iphone"><img src="http://openiconlibrary.sourceforge.net/gallery2/open_icon_library-full/icons/png/128x128/apps/cheese.png"/></a></li>
-			    <li><span>Camera</span><a href="http://apple.com/iphone"><img src="http://openiconlibrary.sourceforge.net/gallery2/open_icon_library-full/icons/png/128x128/apps/mplayer.png"/></a></li>
-			    <li><span>Package Management</span><a href="http://microsoft.com/windowsmobile"><img src="http://openiconlibrary.sourceforge.net/gallery2/open_icon_library-full/icons/png/128x128/apps/system-software-installer.png"/></a></li>
-			    <li><span>Shutdown</span><a href="http://blackberry.com"><img src="http://openiconlibrary.sourceforge.net/gallery2/open_icon_library-full/icons/png/128x128/apps/system-shutdown-5.png"/></a></li>
+			    <li><span>Firwall</span><a href=""><img id="dock-item" src="http://openiconlibrary.sourceforge.net/gallery2/open_icon_library-full/icons/png/128x128/apps/firewall.png"/></a></li>
+			    <li><span>Update</span><a href=""><img src="http://openiconlibrary.sourceforge.net/gallery2/open_icon_library-full/icons/png/128x128/apps/system-software-update-3.png"/></a></li>
+			    <li><span>Camera</span><a href=""><img src="http://openiconlibrary.sourceforge.net/gallery2/open_icon_library-full/icons/png/128x128/apps/cheese.png"/></a></li>
+			    <li><span>Camera</span><a href=""><img src="http://openiconlibrary.sourceforge.net/gallery2/open_icon_library-full/icons/png/128x128/apps/mplayer.png"/></a></li>
+			    <li><span>Package Management</span><a href=""><img src="http://openiconlibrary.sourceforge.net/gallery2/open_icon_library-full/icons/png/128x128/apps/system-software-installer.png"/></a></li>
+			    <li><span>Shutdown</span><a href=""><img src="http://openiconlibrary.sourceforge.net/gallery2/open_icon_library-full/icons/png/128x128/apps/system-shutdown-5.png"/></a></li>
 		    </ul>
 		    <div class="base"></div>
 		    </div>
