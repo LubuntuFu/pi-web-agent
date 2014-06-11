@@ -30,7 +30,7 @@ class View(object):
 
     def __init__(self, actions, cmdactions):
         self.menu=Menu([])
-        self.nav_bar=Menu([], nav=True)
+        self.nav_bar=DockMenu([], nav=True)
         self.actions=actions
         for action in actions:
             if not 'version' in actions[action]:
@@ -39,17 +39,13 @@ class View(object):
                 version = "<sup><sup>" + actions[action]['version'] + "</sup></sup>"
             self.nav_bar.addItem(MenuItem(actions[action]['title'] + version,\
                  actions[action]['url']))
-        if cmdactions != None:    
-            for cmdaction in cmdactions:
-                 self.menu.addItem(MenuItem(cmdactions[cmdaction]['title'],\
-                    cmdactions[cmdaction]['url']))
             
         self.title='The RPi'
         self.titlespan=24
         self.listspan=4
-        self.contentspan=16
+        self.contentspan="main"
         self.setContent('Welcome', 'This is the web agent for the Raspberry PI')
-        
+       
     def setContent(self, title, content):
         """
         gets a title and a content in pure html and finilises the 
@@ -76,19 +72,21 @@ class View(object):
         fbpageFile.close()
         rightSide = '<div class="span4 last">' +\
          createMenuList(self.menu.items, span=None) + "\n" + fbpage + '</div>'    
-        return rightSide
+        return ""
         
     def _mainWindow(self):
         return createText(self.contentTitle, self.content, self.contentspan)
     
     def _footer(self):
+        return ""
+        '''
         return '<footer><center>\n'+\
         '<p><font size="2"> Version: ' + VERSION + '</font></p>' +\
         '<p><font size="2">Copyright &copy; Kupepia 2013</font><br>\n'+\
         '<img src=\'/icons/cy.png\' width="40" height="30"/><font size="1"> 100% Cyprus Product</font></p>\n'+\
         '<p><time pubdate datetime="26/10/2013"></time></p>\n'+\
         '</center></footer>' 
-    
+        '''
     def _view(self):
         self.mainhtml=createHeader(self.title, 16, self._createNavBar())+\
         contain([self._leftListView(),\

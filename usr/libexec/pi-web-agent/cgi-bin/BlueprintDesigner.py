@@ -72,7 +72,7 @@ def createNavListWithDropdown(items):
 def createHeader(title, span, nav_bar):
     
     div='<header class="jumbotron subhead" id="overview">\n'
-    div+='<div class="container">\n<div class="span24">'  
+    div+='<div class="container">\n<div>'  
     div+='<h1><a href="/cgi-bin/index.py">'+\
     '<img src="/icons/logo.png" width="90" height="90" align="left">'+\
     title + '</a>'+\
