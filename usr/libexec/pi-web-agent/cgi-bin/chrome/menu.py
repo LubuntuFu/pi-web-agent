@@ -17,7 +17,23 @@ class MenuItem(object):
         Returns an html representation of a MenuItem
         '''        
         return '<li><a href="' + self.actionlink + '">' + self.name + '</a></li>\n'
+
+
+
+class DockMenuItem(MenuItem):
+    
+    def __init__(self, action_item):
+        MenuItem.__init__(self, action_item["title"], action_item["url"])
+        self.icon = action_item["icon"]
+        if (self.icon == None or len(self.icon) == 0):
+            self.icon = "applications-other-3.png"
+        self.icon = "/icons/" + self.icon
         
+    def __str__(self):
+        return '''<li><span>''' + self.name + '''</span><a href="''' + self.actionlink + '''"><img id="dock-item" src=" ''' + self.icon + '''"/></a></li>'''
+
+
+
 
 class Menu(object):
     '''
@@ -43,40 +59,42 @@ class Menu(object):
         self.span=str(span)
 
     def __str__(self):
-        return ""
         '''
         Uses the Blueprint designer createList to pass its
         span and return an html representation of its view
         '''
-        '''if self.nav:
+        if self.nav:
             return createNavListWithDropdown(self.items)
         else:
             return createMenuList(self.items, self.span)
-        '''
+
         
 class DockMenu(Menu):
 
-    def __init__(self, items, nav=False):
-        Menu.__init__(self, items, nav)
-        
+    def __init__(self, actions):
+        self.items = []
+        for action in actions:
+            action_obj = actions[action]
+            self.items.append(DockMenuItem(action_obj))
+                
     def __str__(self):
-        return '''
+        div_container = '''
         <div id="dock-container">
         <div id="dock">
-		    <ul id="dock">
-			    <li><span>Firwall</span><a href=""><img id="dock-item" src="http://openiconlibrary.sourceforge.net/gallery2/open_icon_library-full/icons/png/128x128/apps/firewall.png"/></a></li>
-			    <li><span>Update</span><a href=""><img src="http://openiconlibrary.sourceforge.net/gallery2/open_icon_library-full/icons/png/128x128/apps/system-software-update-3.png"/></a></li>
-			    <li><span>Camera</span><a href=""><img src="http://openiconlibrary.sourceforge.net/gallery2/open_icon_library-full/icons/png/128x128/apps/cheese.png"/></a></li>
-			    <li><span>Camera</span><a href=""><img src="http://openiconlibrary.sourceforge.net/gallery2/open_icon_library-full/icons/png/128x128/apps/mplayer.png"/></a></li>
-			    <li><span>Package Management</span><a href=""><img src="http://openiconlibrary.sourceforge.net/gallery2/open_icon_library-full/icons/png/128x128/apps/system-software-installer.png"/></a></li>
-			    <li><span>Shutdown</span><a href=""><img src="http://openiconlibrary.sourceforge.net/gallery2/open_icon_library-full/icons/png/128x128/apps/system-shutdown-5.png"/></a></li>
-		    </ul>
-		    <div class="base"></div>
-		    </div>
-		</div>
-	
-	</div>
-	
-	<!-- compatibility -->
-	<p id="ua-string" style="margin:2em 0; color:#ddd; font-style:italic; font-size:.8em"></p>
+            <ul id="dock">'''
+        
+        for item in self.items:
+            div_container += str(item)
+            
+        div_container += '''
+            </ul>
+            <div class="base"></div>
+            </div>
+        </div>
+
+        </div>
+
+        <!-- compatibility -->
+        <p id="ua-string" style="margin:2em 0; color:#ddd; font-style:italic; font-size:.8em"></p>
         '''        
+        return div_container
