@@ -23,8 +23,6 @@ def getView(err):
     uri = InputWidget('text', 'uri', '', 'URI: ',wClass='form-control ',
 											attribs='placeholder="http ... or rtsp ..."')									
     slider='''
-    		<link rel="stylesheet" href="/css/jquery-ui.css">
-		<script src="/css/jquery-ui.js"></script>
     
     <div id="slider"></div>
     	Volume:
