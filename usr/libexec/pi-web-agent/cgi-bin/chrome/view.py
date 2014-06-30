@@ -115,16 +115,18 @@ class DockView(View):
     '''
     
     def __init__(self, actions, cmdactions):
+        self.content='''
+        <div id="dialog_window_1" class="dialog_window" title="">
+        </div>
+'''
         self.nav_bar=DockMenu(actions)
         
+        self.mainhtml=self.content + str(self.nav_bar)
+        
     def setContent(self, title, content):
-        """
-        gets a title and a content in pure html and finilises the 
-        shape and look of the user interface
-        """
         self.contentTitle = title
         self.content = content
-        self._view()    
+        return
     
     def _leftListView(self):
         return ""
@@ -142,4 +144,7 @@ class DockView(View):
         return "" 
     
     def _view(self):
-        self.mainhtml=str(self.nav_bar)
+        return mainhtml
+        
+    def js_output(self):
+        composeJS(self.content)
