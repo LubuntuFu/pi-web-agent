@@ -93,11 +93,7 @@ this_install(){
         echo 
         exit 1
     }
-    curr_dir=$(pwd)
-    cd /usr/share/pi-web-agent/extras/HTML.py-0.04
-    sudo python setup.py install
-    cd $curr_dir
-
+    
     [ -d $LOGS ] || mkdir -p $LOGS
     [ -d $AND_LOGS ] || mkdir -p $AND_LOGS
     cp $VNC_SERVICE /$VNC_SERVICE
@@ -173,7 +169,6 @@ this_uninstall() {
     print_ok
     echo "Deleting user account of appliance..."
     rm /$SUDOERS_D
-    rm -r /$wiringPI || echo "wiringPi OK"
     rm -r /etc/pi-web-agent
     userdel -f pi-web-agent
     print_ok "DONE"
