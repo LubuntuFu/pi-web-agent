@@ -45,7 +45,7 @@ function poop(){
 	exit 1
 }
 function build {
-	if cd ./src/$RELEASENAME&&sh ./build.sh&&cd $PROJDIR;then
+	if cd ./src/$RELEASENAME&&sh ./build.sh $RELEASE &&cd $PROJDIR;then
 		ok "build complete"
 	else
 		poop "build failed"
@@ -59,14 +59,23 @@ function cleanBuild {
 		poop "clean build failed"
 	fi
 }
+function removeHiddenSrc {
+	if find ./src/$RELEASENAME -name '.*' ! -name '.' ! -name '..' -exec rm -rf '{}' \; ;then
+		ok "hidden files removed successfully "
+	else
+		poop "Oh parots...I didn't manage to remove those hidden files"
+	fi	
+}
 function tarRelease {
-	if tar -zcvf /tmp/$RELEASENAME.tar.gz ./src/$RELEASENAME\
+	cd ./src/
+	if tar -zcvf /tmp/$RELEASENAME.tar.gz $RELEASENAME \
  	--exclude "./src/$RELEASENAME/.git"\
-	&&mv /tmp/$RELEASENAME.tar.gz ./src/$RELEASENAME/$RELEASENAME.tar.gz ;then
+	&&mv /tmp/$RELEASENAME.tar.gz $RELEASENAME/$RELEASENAME.tar.gz ;then
 		ok "release compression complete"
 	else
 		poop "release compression failed"
 	fi
+	cd $PROJDIR
 }
 ###long description needs a seperate function
 ###as it is multiline
@@ -147,9 +156,24 @@ cd $PROJDIR
 propertiesToControl
 longDescriptionToControl
 rm src/$RELEASENAME/debian/*.ex
-cp ./postinst src/$RELEASENAME/debian/postinst
-cp ./postinst src/$RELEASENAME/debian/prerm
 
+cp ./buildfiles/debian/postinst src/$RELEASENAME/debian/postinst\
+&&ok "postinst included successfully"|| poop "Oh parrots, fialed to include postinst"
+
+cp ./buildfiles/debian/prerm src/$RELEASENAME/debian/prerm\
+&&ok "prerm included successfully"|| poop "Oh parrots, failed to include prerm"
+
+cp ./buildfiles/debian/copyright src/$RELEASENAME/debian/copyright\
+&&ok "copyright included successfully"|| poop "Oh parrots, failed to include copyright" 
+
+rm src/$RELEASENAME/$RELEASENAME.tar.gz 
+rm src/$RELEASENAME/debian/files
+cd src/$RELEASENAME/
+fakeroot dpkg-buildpackage -F
+echo $PROJDIR
+cd $PROJDIR
+rm bin/*
+cp src/*.deb bin/.
 ##commit current state
 #if [ ! -z "$RELEASE" ]; then
 #        git add .
